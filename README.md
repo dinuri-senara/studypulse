@@ -1,109 +1,388 @@
 # StudyPulse
 
-AI-Based Study Productivity Analyzer
+### AI-Based Study Productivity & Planning Platform
 
-## Overview
-StudyPulse is a modern student productivity platform that helps university students track study sessions, analyze productivity, monitor subject-wise performance, identify productive hours, and receive personalized study recommendations.
+StudyPulse is a full-stack student productivity platform designed to help university students build consistent study habits, track their learning activity, understand productivity patterns, and make better study-planning decisions.
 
-## Problem
-University students often struggle to maintain consistent study habits, track their productivity effectively, and understand which subjects need more focus. Traditional methods lack insightful analytics and personalized feedback.
+It combines study-session tracking, productivity analytics, goal management, study planning, Pomodoro sessions, and an AI Study Advisor into a single platform.
 
-## Solution
-StudyPulse provides a comprehensive SaaS-like dashboard to manage study sessions, set goals, plan schedules, and visualize productivity trends. It incorporates an AI Study Advisor to give actionable recommendations based on the student's actual performance data.
+---
 
-## Features
-- **Modern Dashboard:** View daily/weekly study time, productivity scores, and streaks.
-- **Study Session Tracker:** Log study times with productivity ratings and notes.
-- **Pomodoro Timer:** Built-in timer with customizable work/break intervals (25/5, 50/10, 90/20) that can be saved directly as study sessions.
-- **Goal Management:** Set target minutes for specific subjects and track progress.
-- **Analytics:** Visualize weekly activity and subject-wise performance using Recharts.
-- **AI Study Advisor:** Analyzes study patterns to recommend optimal study times and subject allocations.
-- **Role-Based Access:** Secure JWT authentication separating Student and Admin roles.
+## 📌 Overview
 
-## Technologies
+University students often find it difficult to maintain consistent study routines and understand where their study time is being spent.
+
+StudyPulse addresses this problem by collecting study activity and transforming it into useful insights such as:
+
+* Study time trends
+* Subject-wise performance
+* Productivity scores
+* Study streaks
+* Goals and progress
+* Recommended study times
+* Personalized study advice
+
+---
+
+## ✨ Key Features
+
+### 📊 Smart Dashboard
+
+* Daily and weekly study statistics
+* Productivity score
+* Study streak tracking
+* Quick overview of current goals and activity
+
+### ⏱️ Study Session Tracking
+
+* Record individual study sessions
+* Select subjects
+* Record duration and productivity
+* Add notes to study sessions
+* Review previous study activity
+
+### 🍅 Pomodoro Timer
+
+Built-in Pomodoro timer with configurable study/break intervals:
+
+* 25 / 5
+* 50 / 10
+* 90 / 20
+
+Completed Pomodoro sessions can be saved directly as study sessions.
+
+### 🎯 Goal Management
+
+* Create subject-specific study goals
+* Set target study minutes
+* Monitor goal progress
+* Mark completed goals
+
+### 📈 Productivity Analytics
+
+* Weekly study activity visualization
+* Subject-wise performance
+* Productivity trends
+* Study pattern analysis
+
+### 🤖 AI Study Advisor
+
+The AI Study Advisor analyzes available study-performance data and provides personalized recommendations, including:
+
+* Recommended study periods
+* Subject allocation suggestions
+* Productivity-based advice
+* Actionable study recommendations
+
+### 🔐 Authentication & Authorization
+
+* User registration and login
+* JWT-based authentication
+* Protected routes
+* Role-based access
+* Student and Admin roles
+
+---
+
+## 🏗️ System Architecture
+
+StudyPulse follows a **Client-Server architecture**.
+
+```text
+┌──────────────────────┐
+│      React SPA       │
+│      Frontend        │
+└──────────┬───────────┘
+           │
+           │ REST API
+           ▼
+┌──────────────────────┐
+│   Spring Boot API    │
+│                      │
+│ Controller            │
+│      ↓               │
+│ Service               │
+│      ↓               │
+│ Repository            │
+│      ↓               │
+│ Entity                │
+└──────────┬───────────┘
+           │
+           ▼
+┌──────────────────────┐
+│        MySQL         │
+│       Database       │
+└──────────────────────┘
+```
+
+The backend uses a layered architecture:
+
+**Controller → Service → Repository → Entity**
+
+The React frontend communicates with the Spring Boot backend through RESTful APIs.
+
+---
+
+## 🛠️ Technologies
+
 ### Frontend
-- React (Vite)
-- Tailwind CSS
-- React Router DOM
-- Axios
-- Recharts
-- Lucide React (Icons)
+
+* React
+* Vite
+* Tailwind CSS
+* React Router DOM
+* Axios
+* Recharts
+* Lucide React
 
 ### Backend
-- Java 21
-- Spring Boot 3.4
-- Spring Security (JWT)
-- Spring Data JPA
-- Bean Validation
-- MySQL
 
-## System Architecture
-The application follows a standard Client-Server architecture. The frontend is a Single Page Application (SPA) built with React, communicating via RESTful APIs with the Spring Boot backend. The backend uses a layered architecture (Controller -> Service -> Repository -> Entity) and persists data in a MySQL database.
+* Java 21
+* Spring Boot 3.4
+* Spring Security
+* JWT
+* Spring Data JPA
+* Bean Validation
+* MySQL
 
-## API Documentation
-The API provides endpoints for:
-- `POST /api/auth/register`, `POST /api/auth/login`
-- `GET /api/dashboard/summary`
-- `POST /api/study-sessions`, `GET /api/study-sessions`
-- `POST /api/subjects`, `GET /api/subjects`
-- `POST /api/goals`, `GET /api/goals`, `PUT /api/goals/{id}/complete`
-- `GET /api/ai/study-advice`
+---
 
-*(Swagger UI can be configured by adding `springdoc-openapi-starter-webmvc-ui` dependency to view the full interactive documentation at `/swagger-ui.html`)*
+## 📂 Project Structure
 
-## Installation
-Ensure you have the following installed:
-- Java 21+
-- Node.js 18+
-- MySQL 8+
+```text
+StudyPulse/
+│
+├── backend/
+│   ├── src/
+│   │   ├── main/
+│   │   │   ├── java/
+│   │   │   └── resources/
+│   │   └── test/
+│   ├── pom.xml
+│   └── .env.example
+│
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── context/
+│   │   ├── layouts/
+│   │   ├── pages/
+│   │   ├── routes/
+│   │   └── services/
+│   ├── package.json
+│   └── .env.example
+│
+├── .gitignore
+└── README.md
+```
 
-## Environment Variables
-Create a `.env` file in the `backend` directory based on `.env.example`:
+---
+
+## 🔌 API Overview
+
+The backend exposes RESTful endpoints for the main application features.
+
+### Authentication
+
+```text
+POST /api/auth/register
+POST /api/auth/login
+```
+
+### Dashboard
+
+```text
+GET /api/dashboard/summary
+```
+
+### Study Sessions
+
+```text
+POST /api/study-sessions
+GET /api/study-sessions
+```
+
+### Subjects
+
+```text
+POST /api/subjects
+GET /api/subjects
+```
+
+### Goals
+
+```text
+POST /api/goals
+GET /api/goals
+PUT /api/goals/{id}/complete
+```
+
+### AI Study Advisor
+
+```text
+GET /api/ai/study-advice
+```
+
+---
+
+## ⚙️ Installation & Setup
+
+### Prerequisites
+
+Make sure the following are installed:
+
+* Java 21+
+* Node.js 18+
+* MySQL 8+
+* Git
+
+---
+
+## 🔐 Environment Configuration
+
+### Backend
+
+Create a `.env` file inside the `backend` directory using the provided `.env.example` as a reference.
+
+Example:
+
 ```properties
 DB_URL=jdbc:mysql://localhost:3306/studypulse
 DB_USERNAME=root
-DB_PASSWORD=yourpassword
-JWT_SECRET=83f982136975a596041a84f55562719c8f2206bf2dcbc0f719b0aa90c88bc625
-AI_API_KEY=your_ai_api_key_here
+DB_PASSWORD=your_database_password
+JWT_SECRET=your_secure_jwt_secret
+AI_API_KEY=your_ai_api_key
 ```
 
-Create a `.env` file in the `frontend` directory based on `.env.example`:
+**Never commit your real `.env` file or API keys to GitHub.**
+
+### Frontend
+
+Create a `.env` file inside the `frontend` directory:
+
 ```env
 VITE_API_URL=http://localhost:8080/api
 ```
 
-## Running Backend
-1. Open a terminal in the `backend` directory.
-2. Create a MySQL database named `studypulse`.
-3. Run the application using the Maven wrapper:
-   ```bash
-   ./mvnw spring-boot:run
-   ```
-   *The backend will run on http://localhost:8080*
+---
 
-## Running Frontend
-1. Open a terminal in the `frontend` directory.
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Start the Vite development server:
-   ```bash
-   npm run dev
-   ```
-   *The frontend will be available at http://localhost:5173*
+## 🚀 Running the Backend
 
-## Testing
-Run backend tests using:
+1. Open a terminal inside the `backend` directory.
+2. Create a MySQL database named:
+
+```sql
+CREATE DATABASE studypulse;
+```
+
+3. Configure the backend environment variables.
+4. Start the Spring Boot application:
+
+```bash
+./mvnw spring-boot:run
+```
+
+On Windows:
+
+```powershell
+.\mvnw.cmd spring-boot:run
+```
+
+The backend will run at:
+
+```text
+http://localhost:8080
+```
+
+---
+
+## 💻 Running the Frontend
+
+Open another terminal inside the `frontend` directory.
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+The frontend will normally be available at:
+
+```text
+http://localhost:5173
+```
+
+---
+
+## 🧪 Testing
+
+Backend tests can be executed using:
+
 ```bash
 ./mvnw test
 ```
 
-## Future Improvements
-- Integrate OpenAI API for the AI Advisor (currently mocked).
-- Add full calendar view for Study Plans.
-- Add email notifications for overdue goals.
-- Implement comprehensive admin dashboard analytics.
+On Windows:
 
-## Author
-Built as a comprehensive full-stack portfolio project.
+```powershell
+.\mvnw.cmd test
+```
+
+---
+
+## 📸 Screenshots
+
+Screenshots of the application will be added here to demonstrate the main user interface and functionality.
+
+Suggested screenshots:
+
+* Dashboard
+* Analytics
+* Study Sessions
+* Goals
+* Study Plans
+* AI Study Advisor
+* Pomodoro Timer
+
+---
+
+## 🔮 Future Improvements
+
+Planned improvements include:
+
+* Integration with a production AI API for the AI Study Advisor
+* Full calendar-based study planning
+* Email notifications for upcoming or overdue goals
+* Advanced Admin analytics
+* More detailed productivity prediction
+* Deployment of the frontend and backend
+* Interactive API documentation with Swagger/OpenAPI
+
+---
+
+## 🎓 Project Purpose
+
+StudyPulse was developed as a full-stack Software Engineering portfolio project to demonstrate practical experience with:
+
+* Frontend development
+* Backend development
+* REST API design
+* Database management
+* Authentication and authorization
+* Data visualization
+* AI-assisted functionality
+* Software architecture
+
+---
+
+## 👨‍💻 Author
+
+**Dinuri Senara**
+
+A full-stack student project focused on applying Software Engineering concepts to a practical productivity problem.
